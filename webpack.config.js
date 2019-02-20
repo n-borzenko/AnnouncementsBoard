@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const postcssPresetEnv = require("postcss-preset-env");
 
 module.exports = {
   entry: "./src/index.js",
@@ -12,7 +13,17 @@ module.exports = {
       { test: /\.(js|jsx)$/, exclude: /node_modules/, loader: "babel-loader" },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: [
+          "style-loader",
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              ident: "postcss",
+              plugins: () => [postcssPresetEnv()]
+            }
+          }
+        ]
       },
       {
         test: /\.(png|svg|jpg|gif)$/,

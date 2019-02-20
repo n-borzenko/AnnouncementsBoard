@@ -35,7 +35,12 @@ const Button = props => {
   });
 
   return (
-    <button className={className} onClick={props.onClick}>
+    <button
+      type="button"
+      className={className}
+      onClick={props.onClick}
+      name={name}
+    >
       {renderIcons(props.iconType, props.type)}
       {props.children}
     </button>
@@ -51,7 +56,8 @@ Button.propTypes = {
   onClick: PropTypes.func.isRequired,
   type: PropTypes.oneOf(Object.values(Button.types)).isRequired,
   children: PropTypes.node.isRequired,
-  iconType: PropTypes.oneOf(Object.values(Icon.types))
+  iconType: PropTypes.oneOf(Object.values(Icon.types)),
+  name: PropTypes.string
 };
 
 Button.defaultProps = {

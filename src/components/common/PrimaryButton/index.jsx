@@ -4,11 +4,15 @@ import PropTypes from "prop-types";
 import "./PrimaryButton.css";
 
 const PrimaryButton = props => {
-  return <input type="submit" value={props.value} className="primary-button" />;
+  return (
+    <button type="submit" className="primary-button">
+      {props.children}
+    </button>
+  );
 };
 
 PrimaryButton.propTypes = {
-  value: PropTypes.string.isRequired
+  children: PropTypes.node.isRequired
 };
 
 export default PrimaryButton;
