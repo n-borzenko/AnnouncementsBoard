@@ -6,32 +6,37 @@ import Icon from "../Icon";
 
 import "./Button.css";
 
-const Button = props => {
-  const className = classNames("button", {
-    [`button_${props.type}`]: props.type !== Button.types.regular
-  });
-
-  const icons = props.iconType ? (
+function renderIcons(iconType, type) {
+  if (!iconType) {
+    return null;
+  }
+  return (
     <>
       <span className="button__icon button__icon_white">
-        <Icon type={props.iconType} color={Icon.colors.default} />
+        <Icon type={iconType} color={Icon.colors.default} />
       </span>
       <span className="button__icon button__icon_colored">
         <Icon
-          type={props.iconType}
+          type={iconType}
           color={
-            props.type === Button.types.destructive
+            type === Button.types.destructive
               ? Icon.colors.destructive
               : Icon.colors.regular
           }
         />
       </span>
     </>
-  ) : null;
+  );
+}
+
+const Button = props => {
+  const className = classNames("button", {
+    [`button_${props.type}`]: props.type !== Button.types.regular
+  });
 
   return (
     <button className={className} onClick={props.onClick}>
-      {icons}
+      {renderIcons(props.iconType, props.type)}
       {props.children}
     </button>
   );
