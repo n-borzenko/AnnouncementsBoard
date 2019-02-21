@@ -1,13 +1,20 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import "./MaskedInput.css";
 
+const numbers = [...Array(10)].map((v, i) => i.toString());
+
 const MaskedInput = props => {
   const className = classNames("masked-input", {
-    input_invalid: props.invalid
+    "masked-input_invalid": props.invalid
   });
+
+  const supportedSymbols = useMemo(
+    () => new Set(props.mask.split("").concat(numbers)),
+    [props.mask]
+  );
   const { name, mask } = props;
   const [value, setValue] = useState(props.mask);
   const inputRef = useRef(null);
@@ -20,6 +27,7 @@ const MaskedInput = props => {
     inputRef.current.selectionEnd = end || start;
     if (newValue) {
       setValue(newValue);
+      props.onChange(newValue);
     }
   };
 
@@ -29,7 +37,6 @@ const MaskedInput = props => {
     }
 
     let startPosition = e.target.selectionStart;
-    let endPosition = e.target.selectionEnd;
     let newValue = value;
 
     if (startPosition === 0) {
@@ -58,10 +65,29 @@ const MaskedInput = props => {
     let endPosition = e.target.selectionEnd;
     let newValue = value;
 
-    if (e.key < "0" || e.key > "9") {
+    // skip incorrect symbols
+    if (!supportedSymbols.has(e.key)) {
       e.preventDefault();
       return;
     }
+
+    // if entered symbol from mask, move caret
+    if (
+      props.mask[startPosition] !== "_" &&
+      e.key === props.mask[startPosition]
+    ) {
+      updateInput(null, startPosition + 1);
+      e.preventDefault();
+      return;
+    }
+
+    // skip symbols, which are not numbers
+    if (!numbers.includes(e.key)) {
+      e.preventDefault();
+      return;
+    }
+
+    // search first correct place for number
     while (
       props.mask[startPosition] !== "_" &&
       startPosition <= props.mask.length - 1
@@ -69,17 +95,94 @@ const MaskedInput = props => {
       startPosition += 1;
     }
 
+    // mask end reached
     if (startPosition === props.mask.length) {
       e.preventDefault();
       return;
     }
 
     const length = 1;
+    const lastPart =
+      startPosition + length >= endPosition
+        ? newValue.substr(startPosition + length)
+        : props.mask.substr(
+            startPosition + length,
+            endPosition - startPosition - length
+          ) + newValue.substr(endPosition);
+    newValue = newValue.substr(0, startPosition) + e.key + lastPart;
+    updateInput(newValue, startPosition + 1);
+    e.preventDefault();
+  };
+
+  const handleCut = e => {
+    let startPosition = e.target.selectionStart;
+    let endPosition = e.target.selectionEnd;
+    let newValue = value;
+    const cutPart = props.mask.substr(
+      startPosition,
+      endPosition - startPosition
+    );
     newValue =
       newValue.substr(0, startPosition) +
-      e.key +
-      newValue.substr(startPosition + length);
-    updateInput(newValue, startPosition + 1);
+      cutPart +
+      newValue.substr(endPosition);
+    setTimeout(() => {
+      updateInput(newValue, startPosition);
+    }, 0);
+  };
+
+  const handlePaste = e => {
+    let text = e.clipboardData.getData("Text");
+    if (!text) {
+      e.preventDefault();
+      return;
+    }
+    text = text.split("").filter(s => numbers.includes(s));
+    if (!text.length) {
+      e.preventDefault();
+      return;
+    }
+
+    let startPosition = e.target.selectionStart;
+    let newValue = value;
+
+    // search first correct place for number
+    while (
+      props.mask[startPosition] !== "_" &&
+      startPosition <= props.mask.length - 1
+    ) {
+      startPosition += 1;
+    }
+
+    // mask end reached
+    if (startPosition === props.mask.length) {
+      e.preventDefault();
+      return;
+    }
+
+    // formated pasted numbers
+    let pastePart = "";
+    for (
+      let i = startPosition, j = 0;
+      i < props.mask.length && j < text.length;
+      i++
+    ) {
+      if (props.mask[i] === "_") {
+        pastePart += text[j];
+        j += 1;
+      } else {
+        pastePart += props.mask[i];
+      }
+    }
+
+    newValue =
+      newValue.substr(0, startPosition) +
+      pastePart +
+      newValue.substr(startPosition + pastePart.length);
+    updateInput(
+      newValue,
+      Math.min(startPosition + pastePart.length, props.mask.length)
+    );
     e.preventDefault();
   };
 
@@ -91,6 +194,8 @@ const MaskedInput = props => {
       placeholder={mask}
       onKeyDown={handleKeyDown}
       onKeyPress={handleKeyPress}
+      onCut={handleCut}
+      onPaste={handlePaste}
       defaultValue={value}
       ref={inputRef}
     />

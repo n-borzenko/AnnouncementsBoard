@@ -12,7 +12,8 @@ const App = () => {
   const [valid, setValidity] = useState(true);
   const handleChange = newValue => {
     setValue(newValue);
-    setValidity(newValue.startsWith("12"));
+    console.log(newValue.endsWith("12"));
+    setValidity(newValue.endsWith("12"));
   };
 
   return (
@@ -24,17 +25,16 @@ const App = () => {
         <br />
         1214124kj23kjhr2
       </ValidationMessage>
-      <Input
-        maxLength={15}
-        value={value}
+      <Input maxLength={15} value={value} />
+      <Input invalid />
+      <MaskedInput
+        mask="+7 (___) ___-__-__"
         invalid={!valid}
         onChange={handleChange}
       />
       <br />
       {value}
       <br />
-      <Input invalid />
-      <MaskedInput mask="+7 (___) ___-__-__" />
       <Input multiline />
       <Button iconType={Icon.types.clip}>Прикрепить фото</Button>
       <Button>Редактировать</Button>
