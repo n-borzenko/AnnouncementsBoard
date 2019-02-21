@@ -18,3 +18,15 @@
 .icon_clip.icon_destructive {
   background-image: url("./resources/clip_destructive.svg");
 }
+
+.icon_info {
+  background-image: url("./resources/info.svg");
+}
+
+.icon_success {
+  background-image: url("./resources/success.svg");
+}
+
+.icon_error {
+  background-image: url("./resources/error.svg");
+}

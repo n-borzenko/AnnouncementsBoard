@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
@@ -9,6 +9,10 @@ const Input = props => {
     input_invalid: props.invalid,
     input_multiline: props.multiline
   });
+  const handleChange = e => {
+    props.onChange(e.target.value);
+  };
+
   const { maxLength, name } = props;
   return props.multiline ? (
     <textarea className={className} maxLength={maxLength} name={name} />
@@ -18,6 +22,7 @@ const Input = props => {
       className={className}
       maxLength={maxLength}
       name={name}
+      onChange={handleChange}
     />
   );
 };
@@ -27,7 +32,8 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   invalid: PropTypes.bool.isRequired,
   multiline: PropTypes.bool.isRequired,
-  maxLength: PropTypes.number
+  maxLength: PropTypes.number,
+  onChange: PropTypes.func.isRequired
 };
 
 Input.defaultProps = {

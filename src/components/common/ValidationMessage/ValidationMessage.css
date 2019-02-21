@@ -1,0 +1,30 @@
+.validation-message {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  color: #68717c;
+}
+
+.validation-message_success {
+  color: #16c98d;
+}
+
+.validation-message_error {
+  color: #fa5e5b;
+}
+
+.validation-message__icon {
+  width: 18px;
+  height: 18px;
+  margin: 2px 4px 0 0;
+}
+
+.validation-message__text {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 22px;
+  letter-spacing: normal;
+}

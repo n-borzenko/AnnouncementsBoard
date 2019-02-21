@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import Icon from "../Icon";
+import actionTypes from "../../../constants/actionTypes";
 
 import "./Button.css";
 
@@ -13,44 +14,33 @@ function renderIcons(iconType, type) {
   return (
     <>
       <span className="button__icon button__icon_white">
-        <Icon type={iconType} color={Icon.colors.default} />
+        <Icon type={iconType} />
       </span>
       <span className="button__icon button__icon_colored">
-        <Icon
-          type={iconType}
-          color={
-            type === Button.types.destructive
-              ? Icon.colors.destructive
-              : Icon.colors.regular
-          }
-        />
+        <Icon type={iconType} color={type} />
       </span>
     </>
   );
 }
 
 const Button = props => {
-  const className = classNames("button", {
-    [`button_${props.type}`]: props.type !== Button.types.regular
-  });
+  const { type, iconType } = props;
+  const className = classNames("button", `button_${type}`);
 
   return (
     <button
       type="button"
       className={className}
       onClick={props.onClick}
-      name={name}
+      name={props.name}
     >
-      {renderIcons(props.iconType, props.type)}
+      {renderIcons(iconType, type)}
       {props.children}
     </button>
   );
 };
 
-Button.types = {
-  regular: "regular",
-  destructive: "destructive"
-};
+Button.types = actionTypes;
 
 Button.propTypes = {
   onClick: PropTypes.func.isRequired,
