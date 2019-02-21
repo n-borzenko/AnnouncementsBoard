@@ -1,0 +1,12 @@
+@import "../../../variables.css";
+
+.header {
+  color: var(--color-dark);
+  font-family: var(--font-family);
+  font-size: var(--font-size-big);
+  font-weight: var(--font-weight-bold);
+  font-style: var(--font-style);
+  font-stretch: var(--font-stretch);
+  line-height: var(--line-height-big);
+  letter-spacing: var(--letter-spacing);
+}

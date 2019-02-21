@@ -1,8 +1,33 @@
+@import "./variables.css";
+
 * {
   box-sizing: border-box;
+}
+
+html,
+body {
+  min-width: 611px;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--color-gray);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+  font-style: var(--font-style);
+  font-stretch: var(--font-stretch);
+  line-height: var(--line-height);
+  letter-spacing: var(--letter-spacing);
 }
 
 input,
 button {
   appearance: none;
+}
+
+button {
+  margin: 0;
 }

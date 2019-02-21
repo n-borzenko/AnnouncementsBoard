@@ -1,21 +1,27 @@
+@import "../../../variables.css";
+
 .primary-button {
   width: 141px;
   height: 36px;
   padding: 0 8px;
   border-radius: 3px;
-  box-shadow: 0 1px 0 0 rgba(27, 40, 52, 0.16);
-  background-image: linear-gradient(to bottom, #2d74da, #2367c8);
-  background-color: #2367c8;
+  box-shadow: 0 1px 0 0 var(--color-shadow-dark);
+  background-image: linear-gradient(
+    to bottom,
+    var(--color-regular),
+    var(--color-primary)
+  );
+  background-color: var(--color-primary);
   border: none;
 
-  color: #ffffff;
-  font-family: "Source Sans Pro", sans-serif;
-  font-size: 14px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
+  color: var(--color-white);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+  font-style: var(--font-style);
+  font-stretch: var(--font-stretch);
+  line-height: var(--line-height);
+  letter-spacing: var(--letter-spacing);
 
   display: flex;
   justify-content: center;
@@ -24,5 +30,10 @@
 
 .primary-button:hover,
 .primary-button:active {
-  background-image: linear-gradient(to top, #2d74da, #276ccf, #2367c8);
+  background-image: linear-gradient(
+    to top,
+    var(--color-regular),
+    var(--color-primary-medium),
+    var(--color-primary)
+  );
 }
