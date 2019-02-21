@@ -1,0 +1,19 @@
+.form-field-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field-text__title {
+  margin-bottom: 8px;
+}
+
+.form-field-text__container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.form-field-text__info {
+  margin-left: 25px;
+  margin-top: 7px;
+  flex: 1 0 auto;
+}

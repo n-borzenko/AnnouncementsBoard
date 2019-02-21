@@ -17,7 +17,9 @@ const ValidationMessage = ({ type, children }) => {
       <div className="validation-message__icon">
         <Icon type={type} />
       </div>
-      <span className="validation-message__text">{children}</span>
+      <div className="validation-message__info">
+        <span className="validation-message__text">{children}</span>
+      </div>
     </div>
   );
 };

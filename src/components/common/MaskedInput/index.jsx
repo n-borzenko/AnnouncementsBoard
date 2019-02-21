@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 import "./MaskedInput.css";
 
-const numbers = [...Array(10)].map((v, i) => i.toString());
+const numbers = Object.keys([...Array(10)]);
 
 const MaskedInput = props => {
   const className = classNames("masked-input", {
@@ -15,7 +15,7 @@ const MaskedInput = props => {
     () => new Set(props.mask.split("").concat(numbers)),
     [props.mask]
   );
-  const { name, mask } = props;
+  const { name, mask, id } = props;
   const [value, setValue] = useState(props.mask);
   const inputRef = useRef(null);
 
@@ -198,6 +198,7 @@ const MaskedInput = props => {
       onPaste={handlePaste}
       defaultValue={value}
       ref={inputRef}
+      id={id}
     />
   );
 };
@@ -207,7 +208,8 @@ MaskedInput.propTypes = {
   name: PropTypes.string.isRequired,
   invalid: PropTypes.bool.isRequired,
   mask: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired
 };
 
 MaskedInput.defaultProps = {

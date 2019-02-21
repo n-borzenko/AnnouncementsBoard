@@ -13,9 +13,9 @@ const Input = props => {
     props.onChange(e.target.value);
   };
 
-  const { maxLength, name } = props;
+  const { maxLength, name, id } = props;
   return props.multiline ? (
-    <textarea className={className} maxLength={maxLength} name={name} />
+    <textarea className={className} maxLength={maxLength} name={name} id={id} />
   ) : (
     <input
       type="text"
@@ -23,6 +23,7 @@ const Input = props => {
       maxLength={maxLength}
       name={name}
       onChange={handleChange}
+      id={id}
     />
   );
 };
@@ -33,7 +34,8 @@ Input.propTypes = {
   invalid: PropTypes.bool.isRequired,
   multiline: PropTypes.bool.isRequired,
   maxLength: PropTypes.number,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired
 };
 
 Input.defaultProps = {

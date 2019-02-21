@@ -5,6 +5,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   color: var(--color-gray);
+  white-space: pre-wrap;
 }
 
 .validation-message_success {
@@ -21,7 +22,13 @@
   margin: 2px 4px 0 0;
 }
 
+.validation-message__info {
+  position: relative;
+  flex: 1 0 auto;
+}
+
 .validation-message__text {
+  position: absolute;
   font-family: var(--font-family);
   font-size: var(--font-size);
   font-weight: var(--font-weight);
