@@ -19,6 +19,10 @@ const MaskedInput = props => {
   const [value, setValue] = useState(props.mask);
   const inputRef = useRef(null);
 
+  const handleBlur = () => {
+    props.onBlur(value);
+  };
+
   const updateInput = (newValue, start, end = null) => {
     if (newValue) {
       inputRef.current.value = newValue;
@@ -27,7 +31,6 @@ const MaskedInput = props => {
     inputRef.current.selectionEnd = end || start;
     if (newValue) {
       setValue(newValue);
-      props.onChange(newValue);
     }
   };
 
@@ -196,6 +199,7 @@ const MaskedInput = props => {
       onKeyPress={handleKeyPress}
       onCut={handleCut}
       onPaste={handlePaste}
+      onBlur={handleBlur}
       defaultValue={value}
       ref={inputRef}
       id={id}
@@ -208,7 +212,7 @@ MaskedInput.propTypes = {
   name: PropTypes.string.isRequired,
   invalid: PropTypes.bool.isRequired,
   mask: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired
 };
 

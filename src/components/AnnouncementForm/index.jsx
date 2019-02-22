@@ -1,23 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import Header from "../common/Header";
 import FormFieldText from "../common/FormFieldText";
-
-// import ValidationMessage from "../common/ValidationMessage";
-// import Input from "../common/Input";
-// import MaskedInput from "../common/MaskedInput";
-// import Button from "../common/Button";
-// import PrimaryButton from "../common/PrimaryButton";
-// import Icon from "../common/Icon";
+import formTemplate from "../../constants/formTemplate";
+import formFields from "../../constants/formFields";
 
 import "./AnnouncementForm.css";
 
-const AnnouncementForm = props => {
-  const data = {
-    title: "",
-    text: "",
-    phone: ""
+const renderFormFieldText = (field, data, onValidate) => {
+  return (
+    <FormFieldText
+      value={data.value}
+      validation={data.validation}
+      onValidate={onValidate}
+      {...field}
+    />
+  );
+};
+
+const renderFormFieldSubmit = () => {
+  return null;
+};
+
+const renderFormField = (field, data, updateData) => {
+  switch (field.formField) {
+    case formFields.text:
+      return renderFormFieldText(field, data[field.id], (value, validation) =>
+        updateData(field.id, value, validation)
+      );
+    case formFields.submit:
+      return renderFormFieldSubmit(field);
+    default:
+      return null;
+  }
+};
+
+const AnnouncementForm = () => {
+  const [data, setData] = useState({
+    title: { value: null, validation: null },
+    text: { value: null, validation: null },
+    phone: { value: null, validation: null }
+  });
+
+  const updateData = (id, value, validation) => {
+    const newData = {
+      ...data,
+      [id]: { value, validation }
+    };
+    setData(newData);
   };
 
   return (
@@ -26,11 +57,17 @@ const AnnouncementForm = props => {
         <Header>Подать объявление</Header>
       </div>
       <div className="form">
-        <div className="form__field">
+        {formTemplate.map(field => (
+          <div className="form__field" key={field.id}>
+            {renderFormField(field, data, updateData)}
+          </div>
+        ))}
+        {/* <div className="form__field">
           <FormFieldText
             id="title"
             type={FormFieldText.types.text}
-            value={data["title"]}
+            value={data["title"].value}
+            validation={data["title"].validation}
             title="Заголовок"
             description="Обязательное поле&#13;&#10;Не более 140 символов"
             required
@@ -41,7 +78,8 @@ const AnnouncementForm = props => {
           <FormFieldText
             id="text"
             type={FormFieldText.types.multiline}
-            value={data["text"]}
+            value={data["text"].value}
+            validation={data["text"].validation}
             title="Текст объявления"
             description="Не более 300 символов"
             maxLength={300}
@@ -51,12 +89,13 @@ const AnnouncementForm = props => {
           <FormFieldText
             id="phone"
             type={FormFieldText.types.phone}
-            value={data["phone"]}
+            value={data["phone"].value}
+            validation={data["phone"].validation}
             title="Телефон"
             description="Обязательное поле"
             required
           />
-        </div>
+        </div> */}
       </div>
 
       {/* <ValidationMessage type={ValidationMessage.types.success}>

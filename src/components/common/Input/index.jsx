@@ -9,20 +9,26 @@ const Input = props => {
     input_invalid: props.invalid,
     input_multiline: props.multiline
   });
-  const handleChange = e => {
-    props.onChange(e.target.value);
+  const handleBlur = e => {
+    props.onBlur(e.target.value);
   };
 
   const { maxLength, name, id } = props;
   return props.multiline ? (
-    <textarea className={className} maxLength={maxLength} name={name} id={id} />
+    <textarea
+      className={className}
+      maxLength={maxLength}
+      name={name}
+      id={id}
+      onBlur={handleBlur}
+    />
   ) : (
     <input
       type="text"
       className={className}
       maxLength={maxLength}
       name={name}
-      onChange={handleChange}
+      onBlur={handleBlur}
       id={id}
     />
   );
@@ -34,7 +40,7 @@ Input.propTypes = {
   invalid: PropTypes.bool.isRequired,
   multiline: PropTypes.bool.isRequired,
   maxLength: PropTypes.number,
-  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired
 };
 
