@@ -6,41 +6,16 @@ import MaskedInput from "../../common/MaskedInput";
 import { formFieldsText } from "../../../constants/formFields";
 import { phoneMask } from "../../../constants/phone";
 
-const FormFieldText = ({ type, maxLength, focus, ...props }) => {
-  const [focused, setFocused] = useState(focus);
-  useEffect(() => {
-    setFocused(focus);
-  }, [focus]);
-
+const FormFieldText = ({ type, maxLength, ...props }) => {
   switch (type) {
     case FormFieldText.types.text:
-      return (
-        <Input
-          focus={focused}
-          maxLength={maxLength}
-          name={props.id}
-          {...props}
-        />
-      );
+      return <Input maxLength={maxLength} name={props.id} {...props} />;
     case FormFieldText.types.multiline:
       return (
-        <Input
-          focus={focused}
-          multiline
-          maxLength={maxLength}
-          name={props.id}
-          {...props}
-        />
+        <Input multiline maxLength={maxLength} name={props.id} {...props} />
       );
     case FormFieldText.types.phone:
-      return (
-        <MaskedInput
-          focus={focused}
-          mask={phoneMask}
-          name={props.id}
-          {...props}
-        />
-      );
+      return <MaskedInput mask={phoneMask} name={props.id} {...props} />;
   }
 };
 

@@ -45,6 +45,7 @@ const AnnouncementsList = () => {
         id
       }
     });
+    document.documentElement.scrollTop = 0;
   };
 
   return (

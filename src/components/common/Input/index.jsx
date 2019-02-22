@@ -20,12 +20,13 @@ const Input = props => {
   }, [props.value]);
 
   const handleBlur = e => {
+    e.target.value = e.target.value.trim();
     props.onBlur(e.target.value);
   };
 
   const handleKeyPress = e => {
     if (e.key === "Enter") {
-      props.onBlur(e.target.value);
+      handleBlur(e);
       return;
     }
   };

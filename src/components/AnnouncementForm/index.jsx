@@ -15,7 +15,7 @@ const AnnouncementForm = () => {
   const [formId, setFormId] = useState(1);
   const announcementContext = useContext(AnnouncementsContext);
   const appContext = useContext(AppContext);
-  const editing = appContext.state === appStates.editing;
+  const editing = appContext.state.state === appStates.editing;
   const values = editing
     ? announcementContext.state.values[appContext.state.id]
     : null;
@@ -25,13 +25,14 @@ const AnnouncementForm = () => {
       title: data.title.value,
       phone: data.phone.value,
       text: data.text.value,
-      lastUpdate: new Date()
+      lastUpdate: new Date(),
+      id: editing ? values.id : null
     };
 
     setFormId(formId + 1);
 
     announcementContext.dispatch({
-      type: announcementsActions.add,
+      type: editing ? announcementsActions.update : announcementsActions.add,
       payload: {
         value: announcement
       }
@@ -49,10 +50,10 @@ const AnnouncementForm = () => {
       </div>
       <FormContainer
         template={formTemplate}
-        value={values}
+        values={values}
         onSubmit={handleSubmit}
         editing={editing}
-        key={appContext.id || `tmp${formId}`}
+        key={appContext.state.id || `tmp${formId}`}
       />
     </div>
   );

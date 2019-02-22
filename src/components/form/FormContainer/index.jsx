@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import Form from "../Form";
@@ -41,6 +41,9 @@ const FormContainer = props => {
   const [data, setData] = useState(initialState);
   const [forceValidation, setForceValidation] = useState(props.editing);
   const [focusId, setFocusId] = useState(null);
+  useEffect(() => {
+    setFocusId(props.template[0].id);
+  }, []);
 
   const updateData = (id, value) => {
     const templateField = props.template.find(field => field.id === id);

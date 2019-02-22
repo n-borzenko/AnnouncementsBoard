@@ -10,4 +10,5 @@
   line-height: var(--line-height-small);
   letter-spacing: var(--letter-spacing);
   white-space: pre-wrap;
+  word-break: break-word;
 }

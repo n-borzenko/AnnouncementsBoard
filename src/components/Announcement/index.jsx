@@ -44,7 +44,7 @@ const renderLeftSide = props => {
   );
 };
 
-const renderRightSide = props => {
+const renderRightSide = (props, handleDelete, handleEdit) => {
   return (
     <div className="announcement__right-side">
       <div className="announcement__contacts">
@@ -55,10 +55,10 @@ const renderRightSide = props => {
       </div>
       <div className="announcement__actions">
         <div className="announcement__edit">
-          <Button onClick={props.onEdit}>Редактировать</Button>
+          <Button onClick={handleEdit}>Редактировать</Button>
         </div>
         <div className="announcement__delete">
-          <Button onClick={props.onDelete} type={Button.types.destructive}>
+          <Button onClick={handleDelete} type={Button.types.destructive}>
             Удалить
           </Button>
         </div>
@@ -68,10 +68,18 @@ const renderRightSide = props => {
 };
 
 const Announcement = props => {
+  const handleDelete = () => {
+    props.onDelete(props.id);
+  };
+
+  const handleEdit = () => {
+    props.onEdit(props.id);
+  };
+
   return (
     <div className="announcement">
       {renderLeftSide(props)}
-      {renderRightSide(props)}
+      {renderRightSide(props, handleDelete, handleEdit)}
     </div>
   );
 };
