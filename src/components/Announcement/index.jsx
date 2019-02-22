@@ -5,6 +5,7 @@ import Title from "../common/Title";
 import Text from "../common/Text";
 import Contact from "../common/Contact";
 import Button from "../common/Button";
+import Picture from "../common/Picture";
 
 import "./Announcement.css";
 
@@ -38,7 +39,7 @@ const renderLeftSide = props => {
       </div>
       {renderText(props.text)}
       <div className="annoumcement__image">
-        <img />
+        <Picture />
       </div>
     </div>
   );
