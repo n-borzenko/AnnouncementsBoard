@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
@@ -9,11 +9,18 @@ const Input = props => {
     input_invalid: props.invalid,
     input_multiline: props.multiline
   });
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.value = props.value;
+  }, [props.value]);
+
   const handleBlur = e => {
     props.onBlur(e.target.value);
   };
 
-  const { maxLength, name, id } = props;
+  const { maxLength, name, id, value } = props;
   return props.multiline ? (
     <textarea
       className={className}
@@ -21,6 +28,8 @@ const Input = props => {
       name={name}
       id={id}
       onBlur={handleBlur}
+      defaultValue={value}
+      ref={inputRef}
     />
   ) : (
     <input
@@ -30,12 +39,14 @@ const Input = props => {
       name={name}
       onBlur={handleBlur}
       id={id}
+      defaultValue={value}
+      ref={inputRef}
     />
   );
 };
 
 Input.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   name: PropTypes.string.isRequired,
   invalid: PropTypes.bool.isRequired,
   multiline: PropTypes.bool.isRequired,

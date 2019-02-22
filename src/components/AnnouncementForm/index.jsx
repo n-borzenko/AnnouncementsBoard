@@ -3,57 +3,30 @@ import React, { useState, useContext } from "react";
 import AnnouncementsContext from "../AnnouncementsContext";
 import announcementsActions from "../../constants/announcementsActions";
 import Header from "../common/Header";
-import FormFieldText from "../common/FormFieldText";
-import PrimaryButton from "../common/PrimaryButton";
+import Form from "../common/Form";
 import formTemplate from "../../constants/formTemplate";
 import formFields from "../../constants/formFields";
+import validate from "../../helpers/validation";
 
 import "./AnnouncementForm.css";
 
-const renderFormFieldText = (field, data, onValidate, editing) => {
-  return (
-    <FormFieldText
-      value={data.value}
-      validation={data.validation}
-      onValidate={onValidate}
-      {...field}
-      editing={editing}
-    />
-  );
-};
-
-const renderFormFieldSubmit = (field, editing) => {
-  return (
-    <PrimaryButton>{editing ? field.editingTitle : field.title}</PrimaryButton>
-  );
-};
-
-const renderFormField = (field, data, updateData, editing) => {
-  switch (field.formField) {
-    case formFields.text:
-      return renderFormFieldText(
-        field,
-        data[field.id],
-        (value, validation) => updateData(field.id, value, validation),
-        editing
-      );
-    case formFields.submit:
-      return renderFormFieldSubmit(field, editing);
-    default:
-      return null;
+const initialState = formTemplate.reduce((state, field) => {
+  if (field.formField === formFields.submit) {
+    return state;
   }
-};
+  state[field.id] = { value: null, validation: null };
+  return state;
+}, {});
 
 const AnnouncementForm = () => {
   const { dispatch } = useContext(AnnouncementsContext);
   const editing = false;
-  const [data, setData] = useState({
-    title: { value: null, validation: null },
-    text: { value: null, validation: null },
-    phone: { value: null, validation: null }
-  });
+  const [forceValidation, setForceValidation] = useState(editing);
+  const [data, setData] = useState({ ...initialState });
 
-  const updateData = (id, value, validation) => {
+  const updateData = (id, value) => {
+    const template = formTemplate.find(field => field.id === id);
+    const validation = validate(value, template);
     const newData = {
       ...data,
       [id]: { value, validation }
@@ -61,9 +34,54 @@ const AnnouncementForm = () => {
     setData(newData);
   };
 
+  // if (
+  //   !props.validation ||
+  //   (props.forceValidation && !props.validation.forced)
+  // ) {
+  //   const validation = validate(props.value, !props.forceValidation);
+  //   props.onValidate(props.value, validation);
+  // }
+
   const handleSubmit = e => {
     e.preventDefault();
 
+    // first full validation
+    let currentData = data;
+    if (!forceValidation) {
+      setForceValidation(true);
+      formTemplate.reduce((newData, field) => {
+        if (
+          !data[field.id] ||
+          (data[field.id].validation && !data[field.id].validation.valid)
+        ) {
+          return newData;
+        }
+        const validation = validate(data[field.id].value, field);
+        newData[field.id] = { value: data[field.id].value, validation };
+        return newData;
+      }, {});
+      if (Object.keys(newData).length) {
+        currentData = { ...data, ...newData };
+        setData(currentData);
+      }
+    }
+
+    // search first invalid field
+    const invalidFieldId = formTemplate.find(
+      field =>
+        currentData[field.id] &&
+        (!currentData[field.id].validation ||
+          !currentData[field.id].validation.valid)
+    );
+    if (invalidFieldId) {
+      console.log(`invalid ${invalidFieldId}`);
+      console.log(data);
+      console.log(currentData);
+      //focus ?
+      return;
+    }
+
+    // save announcement
     const announcement = {
       title: data.title.value,
       lastUpdate: new Date()
@@ -75,6 +93,7 @@ const AnnouncementForm = () => {
         value: announcement
       }
     });
+    setData({ ...initialState });
   };
 
   return (
@@ -82,13 +101,13 @@ const AnnouncementForm = () => {
       <div className="announcemenet-form__header">
         <Header>Подать объявление</Header>
       </div>
-      <form className="form" onSubmit={handleSubmit}>
-        {formTemplate.map(field => (
-          <div className="form__field" key={field.id}>
-            {renderFormField(field, data, updateData, editing)}
-          </div>
-        ))}
-      </form>
+      <Form
+        template={formTemplate}
+        data={data}
+        updateData={updateData}
+        onSubmit={handleSubmit}
+        editing={editing}
+      />
     </div>
   );
 };

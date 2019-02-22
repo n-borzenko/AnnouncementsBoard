@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState, useRef, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
@@ -16,7 +16,14 @@ const MaskedInput = props => {
     [props.mask]
   );
   const { name, mask, id } = props;
-  const [value, setValue] = useState(props.mask);
+  const [value, setValue] = useState(props.value || props.mask);
+
+  useEffect(() => {
+    const newValue = props.value || props.mask;
+    setValue(newValue);
+    inputRef.current.value = newValue;
+  }, [props.value]);
+
   const inputRef = useRef(null);
 
   const handleBlur = () => {
@@ -212,7 +219,7 @@ const MaskedInput = props => {
 };
 
 MaskedInput.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   name: PropTypes.string.isRequired,
   invalid: PropTypes.bool.isRequired,
   mask: PropTypes.string.isRequired,

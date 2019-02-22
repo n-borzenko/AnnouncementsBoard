@@ -1,4 +1,4 @@
-export default {
+const formFields = {
   text: "text",
   selector: "selector",
   button: "button",
@@ -10,3 +10,5 @@ export const formFieldsText = {
   multiline: "multiline",
   phone: "phone"
 };
+
+export default formFields;

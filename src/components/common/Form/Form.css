@@ -1,0 +1,11 @@
+.form {
+  margin-top: 24px;
+}
+
+.form__field {
+  margin-top: 29px;
+}
+
+.form__field:first-child {
+  margin-top: 0;
+}
