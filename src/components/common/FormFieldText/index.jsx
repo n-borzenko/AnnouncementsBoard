@@ -99,7 +99,7 @@ const FormFieldText = props => {
   };
 
   if (!props.validation) {
-    const validation = validate(props.value, true);
+    const validation = validate(props.value, !props.editing);
     props.onValidate(props.value, validation);
   }
 
@@ -140,11 +140,13 @@ FormFieldText.propTypes = {
     valid: PropTypes.bool.isRequired,
     type: PropTypes.oneOf(Object.values(validationTypes)).isRequired
   }),
-  onValidate: PropTypes.func.isRequired
+  onValidate: PropTypes.func.isRequired,
+  editing: PropTypes.bool.isRequired
 };
 
 FormFieldText.defaultProps = {
-  required: false
+  required: false,
+  editing: false
 };
 
 export default FormFieldText;

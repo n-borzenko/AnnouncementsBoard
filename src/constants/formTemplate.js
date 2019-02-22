@@ -29,6 +29,7 @@ export default [
   {
     formField: formFields.submit,
     title: "Подать",
+    editingTitle: "Обновить",
     id: "submit"
   }
 ];

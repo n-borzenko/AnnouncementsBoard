@@ -68,6 +68,10 @@ const MaskedInput = props => {
     let endPosition = e.target.selectionEnd;
     let newValue = value;
 
+    if (e.key === "Enter") {
+      return;
+    }
+
     // skip incorrect symbols
     if (!supportedSymbols.has(e.key)) {
       e.preventDefault();
