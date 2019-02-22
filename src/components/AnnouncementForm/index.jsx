@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useContext } from "react";
 
+import AnnouncementsContext from "../AnnouncementsContext";
+import announcementsActions from "../../constants/announcementsActions";
 import Header from "../common/Header";
 import FormFieldText from "../common/FormFieldText";
 import PrimaryButton from "../common/PrimaryButton";
@@ -44,6 +45,7 @@ const renderFormField = (field, data, updateData, editing) => {
 };
 
 const AnnouncementForm = () => {
+  const { dispatch } = useContext(AnnouncementsContext);
   const editing = false;
   const [data, setData] = useState({
     title: { value: null, validation: null },
@@ -60,8 +62,19 @@ const AnnouncementForm = () => {
   };
 
   const handleSubmit = e => {
-    console.log("works");
     e.preventDefault();
+
+    const announcement = {
+      title: data.title.value,
+      lastUpdate: new Date()
+    };
+
+    dispatch({
+      type: announcementsActions.add,
+      payload: {
+        value: announcement
+      }
+    });
   };
 
   return (

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import Icon from "../Icon";
-import actionTypes from "../../../constants/actionTypes";
+import buttonTypes from "../../../constants/buttonTypes";
 
 import "./Button.css";
 
@@ -40,7 +40,7 @@ const Button = props => {
   );
 };
 
-Button.types = actionTypes;
+Button.types = buttonTypes;
 
 Button.propTypes = {
   onClick: PropTypes.func.isRequired,

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import validationTypes from "../../../constants/validationTypes";
-import actionTypes from "../../../constants/actionTypes";
+import buttonTypes from "../../../constants/buttonTypes";
 
 import "./Icon.css";
 
@@ -23,7 +23,7 @@ Icon.types = {
 
 Icon.colors = {
   default: "default",
-  ...actionTypes
+  ...buttonTypes
 };
 
 Icon.propTypes = {
