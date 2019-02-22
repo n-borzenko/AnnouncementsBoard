@@ -25,6 +25,9 @@ const MaskedInput = props => {
   }, [props.value]);
 
   const inputRef = useRef(null);
+  if (props.focus) {
+    inputRef.current.focus();
+  }
 
   const handleBlur = () => {
     props.onBlur(value);
@@ -47,12 +50,28 @@ const MaskedInput = props => {
     }
 
     let startPosition = e.target.selectionStart;
+    let endPosition = e.target.selectionEnd;
     let newValue = value;
+
+    if (startPosition !== endPosition) {
+      const cutPart = props.mask.substr(
+        startPosition,
+        endPosition - startPosition
+      );
+      newValue =
+        newValue.substr(0, startPosition) +
+        cutPart +
+        newValue.substr(endPosition);
+      updateInput(newValue, startPosition);
+      e.preventDefault();
+      return;
+    }
 
     if (startPosition === 0) {
       e.preventDefault();
       return;
     }
+
     if (props.mask[startPosition - 1] !== "_") {
       updateInput(null, startPosition - 1);
       e.preventDefault();
@@ -224,11 +243,13 @@ MaskedInput.propTypes = {
   invalid: PropTypes.bool.isRequired,
   mask: PropTypes.string.isRequired,
   onBlur: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
+  focus: PropTypes.bool.isRequired
 };
 
 MaskedInput.defaultProps = {
-  invalid: false
+  invalid: false,
+  focus: false
 };
 
 export default MaskedInput;

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import ValidationMessage from "../ValidationMessage";
+import ValidationMessage from "../../common/ValidationMessage";
 import validationTypes from "../../../constants/validationTypes";
 
 import "./FormField.css";

@@ -11,6 +11,9 @@ const Input = props => {
   });
 
   const inputRef = useRef(null);
+  if (props.focus) {
+    inputRef.current.focus();
+  }
 
   useEffect(() => {
     inputRef.current.value = props.value;
@@ -52,12 +55,14 @@ Input.propTypes = {
   multiline: PropTypes.bool.isRequired,
   maxLength: PropTypes.number,
   onBlur: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
+  focus: PropTypes.bool.isRequired
 };
 
 Input.defaultProps = {
   invalid: false,
-  multiline: false
+  multiline: false,
+  focus: false
 };
 
 export default Input;

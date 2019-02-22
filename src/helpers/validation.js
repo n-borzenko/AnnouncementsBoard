@@ -10,11 +10,9 @@ const validateText = (newValue, template, skipErrors = false) => {
   let forced = false;
 
   if (skipErrors) {
-    console.log("LIGHT");
     return { message, valid, type, forced };
   }
 
-  console.log("FORCED");
   forced = true;
   switch (template.type) {
     case formFieldsText.text:

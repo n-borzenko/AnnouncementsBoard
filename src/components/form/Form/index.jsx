@@ -3,18 +3,19 @@ import PropTypes from "prop-types";
 
 import FormField from "../FormField";
 import FormFieldText from "../FormFieldText";
-import PrimaryButton from "../PrimaryButton";
+import PrimaryButton from "../../common/PrimaryButton";
 import formFields, { formFieldsText } from "../../../constants/formFields";
 import validationTypes from "../../../constants/validationTypes";
 
 import "./Form.css";
 
-const renderText = (field, data, onBlur) => {
+const renderText = (field, data, onBlur, focusId) => {
   return (
     <FormFieldText
       value={data.value}
       invalid={data.validation ? !data.validation.valid : false}
       onBlur={onBlur}
+      focus={focusId === field.id}
       {...field}
     />
   );
@@ -28,11 +29,14 @@ const renderSubmit = (field, editing) => {
   );
 };
 
-const renderFieldContent = (field, data, updateData, editing) => {
+const renderFieldContent = (field, data, updateData, editing, focusId) => {
   switch (field.formField) {
     case formFields.text:
-      return renderText(field, data[field.id], value =>
-        updateData(field.id, value)
+      return renderText(
+        field,
+        data[field.id],
+        value => updateData(field.id, value),
+        focusId
       );
     case formFields.submit:
       return renderSubmit(field, editing);
@@ -41,7 +45,7 @@ const renderFieldContent = (field, data, updateData, editing) => {
   }
 };
 
-const Form = ({ template, data, updateData, editing, onSubmit }) => {
+const Form = ({ template, data, updateData, editing, onSubmit, focusId }) => {
   return (
     <form className="form" onSubmit={onSubmit}>
       {template.map(field => (
@@ -51,7 +55,7 @@ const Form = ({ template, data, updateData, editing, onSubmit }) => {
             title={field.title}
             validation={data[field.id] ? data[field.id].validation : null}
           >
-            {renderFieldContent(field, data, updateData, editing)}
+            {renderFieldContent(field, data, updateData, editing, focusId)}
           </FormField>
         </div>
       ))}
@@ -85,7 +89,8 @@ Form.propTypes = {
   ).isRequired,
   updateData: PropTypes.func.isRequired,
   editing: PropTypes.bool.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  focusId: PropTypes.string
 };
 
 Form.defaultProps = {
