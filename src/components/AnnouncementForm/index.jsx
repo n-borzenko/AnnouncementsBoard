@@ -1,17 +1,24 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 
-import AnnouncementsContext from "../AnnouncementsContext";
+import AppContext from "../contexts/AppContext";
+import AnnouncementsContext from "../contexts/AnnouncementsContext";
 import announcementsActions from "../../constants/announcementsActions";
 import Header from "../common/Header";
 import FormContainer from "../form/FormContainer";
 import formTemplate from "../../constants/formTemplate";
+import appStates from "../../constants/appStates";
+import appActions from "../../constants/appActions";
 
 import "./AnnouncementForm.css";
 
 const AnnouncementForm = () => {
-  const { dispatch } = useContext(AnnouncementsContext);
-  const values = null;
-  const editing = false;
+  const [formId, setFormId] = useState(1);
+  const announcementContext = useContext(AnnouncementsContext);
+  const appContext = useContext(AppContext);
+  const editing = appContext.state === appStates.editing;
+  const values = editing
+    ? announcementContext.state.values[appContext.state.id]
+    : null;
 
   const handleSubmit = data => {
     const announcement = {
@@ -19,11 +26,17 @@ const AnnouncementForm = () => {
       lastUpdate: new Date()
     };
 
-    dispatch({
+    setFormId(formId + 1);
+
+    announcementContext.dispatch({
       type: announcementsActions.add,
       payload: {
         value: announcement
       }
+    });
+
+    appContext.dispatch({
+      type: appActions.create
     });
   };
 
@@ -37,6 +50,7 @@ const AnnouncementForm = () => {
         value={values}
         onSubmit={handleSubmit}
         editing={editing}
+        key={appContext.id || `tmp${formId}`}
       />
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect } from "react";
 
-import announcementsActions from "../../constants/announcementsActions";
+import announcementsActions from "../../../constants/announcementsActions";
 
 const AnnouncementsContext = React.createContext();
 

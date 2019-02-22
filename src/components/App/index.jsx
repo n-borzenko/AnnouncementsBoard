@@ -1,7 +1,8 @@
 import React from "react";
 
 import AnnouncementForm from "../AnnouncementForm";
-import { AnnouncementsProvider } from "../AnnouncementsContext";
+import { AnnouncementsProvider } from "../contexts/AnnouncementsContext";
+import { AppProvider } from "../contexts/AppContext";
 
 import "./App.css";
 
@@ -9,9 +10,11 @@ const App = () => {
   return (
     <div className="app">
       <div className="app__content">
-        <AnnouncementsProvider>
-          <AnnouncementForm />
-        </AnnouncementsProvider>
+        <AppProvider>
+          <AnnouncementsProvider>
+            <AnnouncementForm />
+          </AnnouncementsProvider>
+        </AppProvider>
       </div>
     </div>
   );
