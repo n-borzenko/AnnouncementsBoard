@@ -1,0 +1,19 @@
+.photo-button {
+  width: 178px;
+  height: 36px;
+  position: relative;
+}
+
+.photo-button__stub {
+  display: inline-block;
+}
+
+.photo-button__input {
+  position: absolute;
+  width: 178px;
+  height: 36px;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  opacity: 0;
+}
