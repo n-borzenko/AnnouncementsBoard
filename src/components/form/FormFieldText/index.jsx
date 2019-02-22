@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import Input from "../../common/Input";
@@ -6,18 +6,41 @@ import MaskedInput from "../../common/MaskedInput";
 import { formFieldsText } from "../../../constants/formFields";
 import { phoneMask } from "../../../constants/phone";
 
-const FormFieldText = ({ type, maxLength, ...props }) => {
+const FormFieldText = ({ type, maxLength, focus, ...props }) => {
+  const [focused, setFocused] = useState(focus);
+  useEffect(() => {
+    setFocused(focus);
+  }, [focus]);
+
   switch (type) {
     case FormFieldText.types.text:
       return (
-        <Input maxLength={maxLength} focus={focus} name={props.id} {...props} />
+        <Input
+          focus={focused}
+          maxLength={maxLength}
+          name={props.id}
+          {...props}
+        />
       );
     case FormFieldText.types.multiline:
       return (
-        <Input multiline maxLength={maxLength} name={props.id} {...props} />
+        <Input
+          focus={focused}
+          multiline
+          maxLength={maxLength}
+          name={props.id}
+          {...props}
+        />
       );
     case FormFieldText.types.phone:
-      return <MaskedInput mask={phoneMask} name={props.id} {...props} />;
+      return (
+        <MaskedInput
+          focus={focused}
+          mask={phoneMask}
+          name={props.id}
+          {...props}
+        />
+      );
   }
 };
 

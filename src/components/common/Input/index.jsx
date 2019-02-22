@@ -23,6 +23,13 @@ const Input = props => {
     props.onBlur(e.target.value);
   };
 
+  const handleKeyPress = e => {
+    if (e.key === "Enter") {
+      props.onBlur(e.target.value);
+      return;
+    }
+  };
+
   const { maxLength, name, id, value } = props;
   return props.multiline ? (
     <textarea
@@ -44,6 +51,7 @@ const Input = props => {
       id={id}
       defaultValue={value}
       ref={inputRef}
+      onKeyPress={handleKeyPress}
     />
   );
 };

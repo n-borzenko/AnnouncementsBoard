@@ -85,7 +85,6 @@ const FormContainer = props => {
     // send correct data
     props.onSubmit(currentData);
   };
-
   return (
     <Form
       template={props.template}

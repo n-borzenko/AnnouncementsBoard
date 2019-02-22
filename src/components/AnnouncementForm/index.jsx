@@ -23,6 +23,8 @@ const AnnouncementForm = () => {
   const handleSubmit = data => {
     const announcement = {
       title: data.title.value,
+      phone: data.phone.value,
+      text: data.text.value,
       lastUpdate: new Date()
     };
 

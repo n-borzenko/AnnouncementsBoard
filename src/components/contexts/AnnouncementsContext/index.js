@@ -11,6 +11,12 @@ const initialState = getFromStorage(announcementsKey, {
   values: {}
 });
 
+Object.keys(initialState.values).forEach(id => {
+  initialState.values[id].lastUpdate = new Date(
+    initialState.values[id].lastUpdate
+  );
+});
+
 const reducer = (state, action) => {
   switch (action.type) {
     case announcementsActions.add: {
