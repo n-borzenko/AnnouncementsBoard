@@ -1,13 +1,15 @@
 import React, { useReducer, useEffect } from "react";
 
 import announcementsActions from "../../../constants/announcementsActions";
+import announcementsKey from "../../../constants/announcementsKey";
+import { setToStorage, getFromStorage } from "../../../helpers/storage";
 
 const AnnouncementsContext = React.createContext();
 
-const initialState = {
+const initialState = getFromStorage(announcementsKey, {
   ids: [],
   values: {}
-};
+});
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -44,9 +46,7 @@ export const AnnouncementsProvider = props => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    console.log(`STATE UPDATED:`);
-    console.log(state);
-    // save
+    setToStorage(announcementsKey, state);
   }, [state]);
 
   const value = { state, dispatch };
