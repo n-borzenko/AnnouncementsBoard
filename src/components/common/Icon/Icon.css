@@ -30,3 +30,11 @@
 .icon_error {
   background-image: url("./resources/error.svg");
 }
+
+.icon_location {
+  background-image: url("./resources/location.svg");
+}
+
+.icon_phone {
+  background-image: url("./resources/phone.svg");
+}

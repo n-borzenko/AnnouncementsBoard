@@ -1,0 +1,19 @@
+.announcemenets-list {
+}
+
+.announcemenets-list__header {
+  height: 38px;
+}
+
+.announcemenets-list__items {
+  margin-top: 23px;
+  padding-bottom: 48px;
+}
+
+.announcemenets-list__item {
+  margin-top: 78px;
+}
+
+.announcemenets-list__item:first-child {
+  margin-top: 0;
+}

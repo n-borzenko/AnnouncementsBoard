@@ -1,6 +1,7 @@
 import React from "react";
 
 import AnnouncementForm from "../AnnouncementForm";
+import AnnouncementsList from "../AnnouncementsList";
 import { AnnouncementsProvider } from "../contexts/AnnouncementsContext";
 import { AppProvider } from "../contexts/AppContext";
 
@@ -12,7 +13,12 @@ const App = () => {
       <div className="app__content">
         <AppProvider>
           <AnnouncementsProvider>
-            <AnnouncementForm />
+            <div className="app__form">
+              <AnnouncementForm />
+            </div>
+            <div className="app__list">
+              <AnnouncementsList />
+            </div>
           </AnnouncementsProvider>
         </AppProvider>
       </div>

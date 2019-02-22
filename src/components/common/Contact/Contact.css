@@ -1,0 +1,24 @@
+@import "../../../variables.css";
+
+.contact {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.contact__icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 7px;
+}
+
+.contact__text {
+  color: var(--color-dark);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+  font-style: var(--font-style);
+  font-stretch: var(--font-stretch);
+  line-height: var(--line-height-small);
+  letter-spacing: var(--letter-spacing);
+}

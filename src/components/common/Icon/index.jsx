@@ -4,6 +4,7 @@ import classNames from "classnames";
 
 import validationTypes from "../../../constants/validationTypes";
 import buttonTypes from "../../../constants/buttonTypes";
+import contactTypes from "../../../constants/contactTypes";
 
 import "./Icon.css";
 
@@ -18,7 +19,8 @@ const Icon = props => {
 
 Icon.types = {
   clip: "clip",
-  ...validationTypes
+  ...validationTypes,
+  ...contactTypes
 };
 
 Icon.colors = {

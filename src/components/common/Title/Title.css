@@ -1,0 +1,13 @@
+@import "../../../variables.css";
+
+.title {
+  color: var(--color-dark);
+  font-family: var(--font-family);
+  font-size: var(--font-size-medium);
+  font-weight: var(--font-weight);
+  font-style: var(--font-style);
+  font-stretch: var(--font-stretch);
+  line-height: var(--line-height-small);
+  letter-spacing: var(--letter-spacing);
+  white-space: pre-wrap;
+}

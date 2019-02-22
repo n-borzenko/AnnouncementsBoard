@@ -58,6 +58,4 @@ const AnnouncementForm = () => {
   );
 };
 
-AnnouncementForm.propTypes = {};
-
 export default AnnouncementForm;
