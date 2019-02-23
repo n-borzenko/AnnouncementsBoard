@@ -40,6 +40,10 @@
   font-stretch: var(--font-stretch);
   line-height: var(--line-height);
   letter-spacing: var(--letter-spacing);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .selector__actions {

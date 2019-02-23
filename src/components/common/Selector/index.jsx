@@ -63,14 +63,6 @@ const Selector = props => {
     inputRef.current.value = props.value || "";
   }
 
-  const handleFocus = () => {
-    setSelected(
-      props.value ? props.values.findIndex(i => i === props.value) : 0
-    );
-    setVisibleSelection(true);
-    setShowValues(true);
-  };
-
   const handleBlur = () => {
     setTimeout(() => {
       setShowValues(false);
@@ -90,8 +82,20 @@ const Selector = props => {
     }
   };
 
+  const showDropdown = e => {
+    e.preventDefault();
+    setSelected(
+      props.value ? props.values.findIndex(i => i === props.value) : 0
+    );
+    setVisibleSelection(true);
+    setShowValues(true);
+  };
+
   const handleKeyDown = e => {
     if (e.key === "ArrowDown") {
+      if (!showValues) {
+        return showDropdown(e);
+      }
       e.preventDefault();
       setSelected(Math.min(selected + 1, props.values.length - 1));
       if (!visibleSelection) {
@@ -100,6 +104,9 @@ const Selector = props => {
       return;
     }
     if (e.key === "ArrowUp") {
+      if (!showValues) {
+        return showDropdown(e);
+      }
       e.preventDefault();
       setSelected(Math.max(selected - 1, 0));
       if (!visibleSelection) {
@@ -110,15 +117,21 @@ const Selector = props => {
 
   const handleKeyPress = e => {
     if (e.key === "Enter") {
+      if (!showValues) {
+        return showDropdown(e);
+      }
       e.preventDefault();
       handleSelect(props.values[selected]);
     }
   };
 
-  const handleOnClick = () => {
-    // if (showValues) {
-    //   setShowValues(false);
-    // }
+  const handleOnClick = e => {
+    if (showValues === false) {
+      return showDropdown(e);
+    }
+    if (showValues) {
+      setShowValues(false);
+    }
   };
 
   const removeValue = () => {
@@ -135,7 +148,6 @@ const Selector = props => {
         ref={inputRef}
         onKeyDown={handleKeyDown}
         onKeyPress={handleKeyPress}
-        onFocus={handleFocus}
         onBlur={handleBlur}
         onClick={handleOnClick}
       />

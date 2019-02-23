@@ -28,7 +28,7 @@ const SelectorValues = props => {
             }}
             key={value}
           >
-            {value}
+            <span className="selector-values__text">{value}</span>
           </div>
         );
       })}
