@@ -4,7 +4,6 @@ import AnnouncementForm from "../AnnouncementForm";
 import AnnouncementsList from "../AnnouncementsList";
 import { AnnouncementsProvider } from "../contexts/AnnouncementsContext";
 import { AppProvider } from "../contexts/AppContext";
-import PhotoLoader from "../photo/PhotoLoader";
 
 import "./App.css";
 
@@ -17,11 +16,6 @@ const App = () => {
             <div className="app__form">
               <AnnouncementForm />
             </div>
-            <PhotoLoader
-              buttonTitle="Прикрепить файл"
-              id="photo"
-              name="photo"
-            />
             <div className="app__list">
               <AnnouncementsList />
             </div>

@@ -2,7 +2,8 @@ const formFields = {
   text: "text",
   selector: "selector",
   button: "button",
-  submit: "submit"
+  submit: "submit",
+  photo: "photo"
 };
 
 export const formFieldsText = {

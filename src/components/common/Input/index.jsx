@@ -26,7 +26,8 @@ const Input = props => {
 
   const handleKeyPress = e => {
     if (e.key === "Enter") {
-      handleBlur(e);
+      inputRef.current.blur();
+      //handleBlur(e);
       return;
     }
   };

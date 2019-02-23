@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import FormField from "../FormField";
 import FormFieldText from "../FormFieldText";
 import PrimaryButton from "../../common/PrimaryButton";
+import PhotoLoader from "../../photo/PhotoLoader";
 import formFields, { formFieldsText } from "../../../constants/formFields";
 import validationTypes from "../../../constants/validationTypes";
 
@@ -21,6 +22,19 @@ const renderText = (field, data, onBlur, focusId) => {
   );
 };
 
+const renderPhoto = (field, data, onChange, focusId) => {
+  return (
+    <PhotoLoader
+      name={field.id}
+      id={field.id}
+      photo={data.value}
+      buttonTitle={field.buttonTitle}
+      onChange={onChange}
+      focus={focusId === field.id}
+    />
+  );
+};
+
 const renderSubmit = (field, editing) => {
   return (
     <PrimaryButton>
@@ -33,6 +47,13 @@ const renderFieldContent = (field, data, updateData, editing, focusId) => {
   switch (field.formField) {
     case formFields.text:
       return renderText(
+        field,
+        data[field.id],
+        value => updateData(field.id, value),
+        focusId
+      );
+    case formFields.photo:
+      return renderPhoto(
         field,
         data[field.id],
         value => updateData(field.id, value),

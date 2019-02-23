@@ -95,7 +95,8 @@ const MaskedInput = props => {
     let newValue = value;
 
     if (e.key === "Enter") {
-      props.onBlur(value);
+      inputRef.current.blur();
+      //props.onBlur(value);
       return;
     }
 

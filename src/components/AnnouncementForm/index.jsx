@@ -25,6 +25,7 @@ const AnnouncementForm = () => {
       title: data.title.value,
       phone: data.phone.value,
       text: data.text.value,
+      photo: data.photo.value,
       lastUpdate: new Date(),
       id: editing ? values.id : null
     };

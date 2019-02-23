@@ -39,7 +39,7 @@ const renderLeftSide = props => {
       </div>
       {renderText(props.text)}
       <div className="annoumcement__image">
-        <Picture />
+        <Picture src={props.photo} />
       </div>
     </div>
   );
@@ -91,7 +91,7 @@ Announcement.propTypes = {
   text: PropTypes.string,
   phone: PropTypes.string.isRequired,
   city: PropTypes.string,
-  image: PropTypes.any,
+  photo: PropTypes.any,
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired
 };

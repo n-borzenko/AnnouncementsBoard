@@ -7,13 +7,11 @@ const validateText = (newValue, template, skipErrors = false) => {
   let message = template.description;
   let valid = true;
   let type = validationTypes.info;
-  let forced = false;
 
   if (skipErrors) {
-    return { message, valid, type, forced };
+    return { message, valid, type };
   }
 
-  forced = true;
   switch (template.type) {
     case formFieldsText.text:
     case formFieldsText.multiline:
@@ -52,13 +50,32 @@ const validateText = (newValue, template, skipErrors = false) => {
       }
       break;
   }
-  return { message, valid, type, forced };
+  return { message, valid, type };
+};
+
+const validatePhoto = (newValue, template, skipErrors = false) => {
+  let message = template.description;
+  let valid = true;
+  let type = validationTypes.info;
+
+  if (skipErrors) {
+    return { message, valid, type };
+  }
+
+  if (template.required) {
+    valid = newValue !== null;
+    message = valid ? validationMessages.filled : validationMessages.required;
+    type = valid ? validationTypes.success : validationTypes.error;
+  }
+  return { message, valid, type };
 };
 
 const validate = (value, template, skipErrors = false) => {
   switch (template.formField) {
     case formFields.text:
       return validateText(value, template, skipErrors);
+    case formFields.photo:
+      return validatePhoto(value, template, skipErrors);
     default:
       return null;
   }

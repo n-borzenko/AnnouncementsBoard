@@ -27,6 +27,11 @@ export default [
     required: true
   },
   {
+    formField: formFields.photo,
+    id: "photo",
+    buttonTitle: "Прикрепить фото"
+  },
+  {
     formField: formFields.submit,
     buttonTitle: "Подать",
     editingTitle: "Обновить",

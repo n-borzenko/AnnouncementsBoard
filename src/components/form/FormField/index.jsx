@@ -35,7 +35,7 @@ const FormField = props => {
     <div className="form-field">
       {renderTitle(props.title, props.id)}
       <div className="form-field__container">
-        {props.children}
+        <div className="form-field__item">{props.children}</div>
         {renderMessage(props.validation)}
       </div>
     </div>

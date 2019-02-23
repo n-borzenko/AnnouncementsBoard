@@ -1,17 +1,18 @@
 @import "../../../variables.css";
 
 .photo-preview {
-  width: 178px;
-  min-height: 40px;
-  height: auto;
+  width: 410px;
+  height: 60px;
   display: flex;
+  max-width: 410px;
   justify-content: flex-start;
 }
 
 .photo-preview__image {
-  flex: 0 0 40%;
-  height: 25px;
+  flex: 0 0 20%;
   align-self: center;
+  height: 100%;
+  display: flex;
 }
 
 .photo-preview__data {
@@ -21,6 +22,7 @@
   justify-content: space-around;
   align-items: flex-start;
   margin-left: 10px;
+  max-width: calc(80% - 10px);
 }
 
 .photo-preview__title {
@@ -32,6 +34,10 @@
   font-stretch: var(--font-stretch);
   line-height: var(--line-height);
   letter-spacing: var(--letter-spacing);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .photo-preview__delete {

@@ -1,21 +1,14 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer, useEffect, useState } from "react";
 
 import announcementsActions from "../../../constants/announcementsActions";
-import announcementsKey from "../../../constants/announcementsKey";
-import { setToStorage, getFromStorage } from "../../../helpers/storage";
+import {
+  saveAnnouncements,
+  readAnnouncements
+} from "../../../helpers/announcementsSaver";
 
 const AnnouncementsContext = React.createContext();
 
-const initialState = getFromStorage(announcementsKey, {
-  ids: [],
-  values: {}
-});
-
-Object.keys(initialState.values).forEach(id => {
-  initialState.values[id].lastUpdate = new Date(
-    initialState.values[id].lastUpdate
-  );
-});
+const initialState = readAnnouncements();
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -50,12 +43,28 @@ const reducer = (state, action) => {
 
 export const AnnouncementsProvider = props => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [savedId, setSavedId] = useState(0);
+
+  const handleDispatch = action => {
+    switch (action.type) {
+      case announcementsActions.add:
+        setSavedId(Math.max(...state.ids, 0) + 1);
+        break;
+      case announcementsActions.update:
+        setSavedId(action.payload.value.id);
+        break;
+      case announcementsActions.delete:
+        setSavedId(action.payload.id);
+        break;
+    }
+    dispatch(action);
+  };
 
   useEffect(() => {
-    setToStorage(announcementsKey, state);
-  }, [state]);
+    saveAnnouncements(state, savedId);
+  }, [state, savedId]);
 
-  const value = { state, dispatch };
+  const value = { state, dispatch: handleDispatch };
   return (
     <AnnouncementsContext.Provider value={value}>
       {props.children}
