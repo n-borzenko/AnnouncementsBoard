@@ -64,9 +64,10 @@ const Selector = props => {
   }
 
   const handleBlur = () => {
+    // catch click events before blur
     setTimeout(() => {
       setShowValues(false);
-    }, 50);
+    }, 200);
   };
 
   const handleSelect = value => {
