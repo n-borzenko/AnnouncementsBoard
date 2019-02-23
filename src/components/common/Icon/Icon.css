@@ -38,3 +38,11 @@
 .icon_phone {
   background-image: url("./resources/phone.svg");
 }
+
+.icon_arrow {
+  background-image: url("./resources/arrow.svg");
+}
+
+.icon_remove {
+  background-image: url("./resources/remove.svg");
+}

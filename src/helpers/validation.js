@@ -13,8 +13,22 @@ const validateText = (newValue, template, skipErrors = false) => {
   }
 
   switch (template.type) {
-    case formFieldsText.text:
-    case formFieldsText.multiline:
+    case formFieldsText.phone:
+      {
+        if (newValue && newValue.length && newValue !== phoneMask) {
+          valid = phoneRegex.test(newValue);
+          message = valid
+            ? validationMessages.filled
+            : validationMessages.format;
+          type = valid ? validationTypes.success : validationTypes.error;
+        } else {
+          valid = !template.required;
+          message = valid ? template.description : validationMessages.required;
+          type = valid ? validationTypes.info : validationTypes.error;
+        }
+      }
+      break;
+    default:
       {
         if (newValue && newValue.length) {
           if (template.maxLength) {
@@ -27,21 +41,6 @@ const validateText = (newValue, template, skipErrors = false) => {
             message = validationMessages.filled;
             type = validationTypes.success;
           }
-        } else {
-          valid = !template.required;
-          message = valid ? template.description : validationMessages.required;
-          type = valid ? validationTypes.info : validationTypes.error;
-        }
-      }
-      break;
-    case formFieldsText.phone:
-      {
-        if (newValue && newValue.length && newValue !== phoneMask) {
-          valid = phoneRegex.test(newValue);
-          message = valid
-            ? validationMessages.filled
-            : validationMessages.format;
-          type = valid ? validationTypes.success : validationTypes.error;
         } else {
           valid = !template.required;
           message = valid ? template.description : validationMessages.required;
@@ -72,6 +71,7 @@ const validatePhoto = (newValue, template, skipErrors = false) => {
 
 const validate = (value, template, skipErrors = false) => {
   switch (template.formField) {
+    case formFields.selector:
     case formFields.text:
       return validateText(value, template, skipErrors);
     case formFields.photo:

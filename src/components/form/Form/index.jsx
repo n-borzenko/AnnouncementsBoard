@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import FormField from "../FormField";
 import FormFieldText from "../FormFieldText";
 import PrimaryButton from "../../common/PrimaryButton";
+import Selector from "../../common/Selector";
 import PhotoLoader from "../../photo/PhotoLoader";
 import formFields, { formFieldsText } from "../../../constants/formFields";
 import validationTypes from "../../../constants/validationTypes";
@@ -35,6 +36,20 @@ const renderPhoto = (field, data, onChange, focusId) => {
   );
 };
 
+const renderSelector = (field, data, onChange, focusId) => {
+  return (
+    <Selector
+      values={field.values}
+      value={data.value}
+      id={field.id}
+      name={field.id}
+      invalid={data.validation ? !data.validation.valid : false}
+      onChange={onChange}
+      focus={focusId === field.id}
+    />
+  );
+};
+
 const renderSubmit = (field, editing) => {
   return (
     <PrimaryButton>
@@ -54,6 +69,13 @@ const renderFieldContent = (field, data, updateData, editing, focusId) => {
       );
     case formFields.photo:
       return renderPhoto(
+        field,
+        data[field.id],
+        value => updateData(field.id, value),
+        focusId
+      );
+    case formFields.selector:
+      return renderSelector(
         field,
         data[field.id],
         value => updateData(field.id, value),

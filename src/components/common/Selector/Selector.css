@@ -1,0 +1,76 @@
+@import "../../../variables.css";
+
+.selector {
+  width: 410px;
+  height: 36px;
+  border-radius: 3px;
+  padding: 0;
+  box-shadow: inset 0 1px 3px 0 var(--color-shadow);
+  background-color: var(--color-gray-transparent);
+  border: 1px solid var(--color-gray-light);
+
+  color: var(--color-gray);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+  font-style: var(--font-style);
+  font-stretch: var(--font-stretch);
+  line-height: var(--line-height);
+  letter-spacing: var(--letter-spacing);
+  position: relative;
+}
+
+.selector_invalid {
+  border-color: var(--color-destructive);
+}
+
+.selector__input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: none;
+  padding: 0 70px 0 16px;
+
+  text-align: left;
+  color: var(--color-gray);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+  font-style: var(--font-style);
+  font-stretch: var(--font-stretch);
+  line-height: var(--line-height);
+  letter-spacing: var(--letter-spacing);
+}
+
+.selector__actions {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  pointer-events: none;
+}
+
+.selector__action {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: var(--color-white);
+  padding: 0;
+  margin-left: 8px;
+  background: none;
+}
+
+.selector__action_remove {
+  pointer-events: all;
+}
+
+.selector__action_arrow {
+  pointer-events: none;
+}
+
+.selector__action:last-child {
+  margin-right: 7px;
+}

@@ -19,6 +19,8 @@ const Icon = props => {
 
 Icon.types = {
   clip: "clip",
+  arrow: "arrow",
+  remove: "remove",
   ...validationTypes,
   ...contactTypes
 };

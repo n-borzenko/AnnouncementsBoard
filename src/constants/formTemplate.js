@@ -27,6 +27,18 @@ export default [
     required: true
   },
   {
+    formField: formFields.selector,
+    id: "city",
+    title: "Город",
+    values: [
+      "Москва",
+      "Санкт-Петербург",
+      "Казань",
+      "Екатеринбург",
+      "Новосибирск"
+    ]
+  },
+  {
     formField: formFields.photo,
     id: "photo",
     buttonTitle: "Прикрепить фото"

@@ -5,9 +5,11 @@
 
   --color-shadow: rgba(27, 40, 52, 0.08);
   --color-shadow-dark: rgba(27, 40, 52, 0.16);
+  --color-shadow-black: rgba(0, 0, 0, 0.26);
   --color-gray-transparent: rgba(27, 40, 52, 0.01);
   --color-gray-light: #d4d8db;
 
+  --color-blue-light: #488edf;
   --color-regular: #2d74da;
   --color-regular-dark: #1c5bb5;
   --color-destructive: #fa5e5b;
